@@ -48,8 +48,8 @@ public class RoundImageView extends ImageView {
 
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.RoundImageView);
-            nStrokeColor = typedArray.getColor(R.styleable.RoundImageView_strokeColor, Color.parseColor("#efefef"));
-            fStrokeWidth = typedArray.getFloat(R.styleable.RoundImageView_strokeWidth, 4f);
+            nStrokeColor = typedArray.getColor(R.styleable.RoundImageView_CircleStrokeColor, Color.parseColor("#efefef"));
+            fStrokeWidth = typedArray.getFloat(R.styleable.RoundImageView_CircleStrokeWidth, 4f);
         }
 
     }
