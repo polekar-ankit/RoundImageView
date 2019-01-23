@@ -1,6 +1,7 @@
-package com.gipl.myapplication;
+package com.gipl.roundimageview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -17,20 +18,43 @@ import android.widget.ImageView;
 
 public class RoundImageView extends ImageView {
 
+    private int nStrokeColor;
+    private float fStrokeWidth;
+
     public RoundImageView(Context context) {
         super(context);
-        // TODO Auto-generated constructor stub
+        initView(null);
     }
 
     public RoundImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initView(attrs);
     }
 
     public RoundImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        initView(attrs);
     }
 
-    public static Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
+    public void setStrokeWidth(float fStrokeWidth) {
+        this.fStrokeWidth = fStrokeWidth;
+    }
+
+    public void setStrokeColor(int nStrokeColor) {
+        this.nStrokeColor = nStrokeColor;
+    }
+
+    private void initView(AttributeSet attrs) {
+
+        if (attrs != null) {
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.RoundImageView);
+            nStrokeColor = typedArray.getColor(R.styleable.RoundImageView_strokeColor, Color.parseColor("#efefef"));
+            fStrokeWidth = typedArray.getFloat(R.styleable.RoundImageView_strokeWidth, 4f);
+        }
+
+    }
+
+    public Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
         Bitmap sbmp;
 
         if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
@@ -62,14 +86,16 @@ public class RoundImageView extends ImageView {
 
         canvas.drawARGB(0, 0, 0, 0);
         paint.setColor(Color.parseColor("#BAB399"));
-        stroke.setColor(Color.parseColor("#efefef"));
+        stroke.setColor(nStrokeColor);
         stroke.setStyle(Style.STROKE);
-        stroke.setStrokeWidth(4f);
+        stroke.setStrokeWidth(fStrokeWidth);
+
         canvas.drawCircle(radius / 2 + 0.7f,
                 radius / 2 + 0.7f, radius / 2 + 0.1f, paint);
-        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-        canvas.drawBitmap(sbmp, rect, rect, paint);
 
+        paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+
+        canvas.drawBitmap(sbmp, rect, rect, paint);
         canvas.drawCircle(radius / 2 + 0.7f,
                 radius / 2 + 0.7f, radius / 2 - stroke.getStrokeWidth() / 2 + 0.1f, stroke);
 

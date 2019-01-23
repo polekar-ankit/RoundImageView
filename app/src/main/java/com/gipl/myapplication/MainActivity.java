@@ -1,9 +1,10 @@
 package com.gipl.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.gipl.roundimageview.RoundImageView;
 
 public class MainActivity extends AppCompatActivity {
 
