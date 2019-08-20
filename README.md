@@ -1,5 +1,5 @@
 # RoundImageView
-This Libraray is use to display image in circular image view
+This Libraray is use to display image in circular image view.Image scale type is center crop 
 
 ### Installing
 Add following line to gradle file 
